@@ -4,7 +4,7 @@ Ps2Unity 是 Unity 2022.3+ 编辑器插件，用于把 PS2UI Photoshop Package �
 
 ## 前置：安装 PS2UI
 
-本仓库不包含 Photoshop 插件。先从 [PS2UI Releases](https://github.com/Homer79980/PS2UI-Releases/releases/latest) 安装 `PS2UI-Photoshop-<版本>.ccx`，在 Photoshop 中导出包含 `layout.json` 和 `sprites/` 的 Package。
+本仓库不包含 Photoshop 插件。先从 [PS2UI Releases](https://github.com/Homer79980/PS2UI/releases/latest) 安装 `PS2UI-Photoshop-<版本>.ccx`，在 Photoshop 中导出包含 `layout.json` 和 `sprites/` 的 Package。
 
 ## 下载
 
