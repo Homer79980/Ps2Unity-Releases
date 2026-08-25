@@ -1,76 +1,77 @@
 # Ps2Unity Releases
 
-Ps2Unity 是 Unity 2022.3+ 编辑器插件，用于把 PS2UI Photoshop Package 导入为可编辑的 uGUI Prefab，并处理图片复用、九宫、TextMesh Pro 字体与材质映射。
+Ps2Unity 是适用于 Unity 2022.3 的纯 Editor UI 导入器。它把 PS2UI Photoshop Package 转换为可编辑的 uGUI Prefab，并处理 Sprite 复用、九宫、TextMesh Pro 字体与材质映射。
+
+新生成的 Prefab 只使用 Unity UI、TextMesh Pro 和项目资源。PS2Unity 只在导入时工作，卸载插件后，已经生成的界面仍可继续运行。
 
 ## 前置：安装 PS2UI
 
-本仓库不包含 Photoshop 插件。先从 [PS2UI Releases](https://github.com/Homer79980/PS2UI/releases/latest) 安装 `PS2UI-Photoshop-<版本>.ccx`，在 Photoshop 中导出包含 `layout.json` 和 `sprites/` 的 Package。
+先从 [PS2UI Releases](https://github.com/Homer79980/PS2UI/releases/latest) 安装 Photoshop 导出器，再在 Photoshop 中导出包含 `layout.json` 和 `sprites/` 的 Package。
 
-## 下载
+## 下载 3.0.0
 
-[打开最新 Release](https://github.com/Homer79980/Ps2Unity-Releases/releases/latest)
+[打开 Ps2Unity 3.0.0 Release](https://github.com/Homer79980/Ps2Unity-Releases/releases/tag/v3.0.0)
 
 | 文件 | 用途 |
 |---|---|
-| `PS2Unity-Unity-UPM-2.1.1.zip` | 推荐的 Unity Package Manager 安装包 |
-| `PS2Unity-Unity-2.1.1.unitypackage` | 传统 Custom Package 安装包 |
-| `PS2Unity-2.1.1-SHA256.txt` | 两个安装包的 SHA-256 |
+| `PS2Unity-Unity-UPM-3.0.0.zip` | 推荐的 Unity Package Manager 安装包 |
+| `PS2Unity-Unity-3.0.0.unitypackage` | 传统 Custom Package 安装包 |
+| `PS2Unity-3.0.0-SHA256.txt` | 两个安装包的 SHA-256 |
+
+Windows 用户也可以使用 PS2UI Engine Installer 0.1.2，一次为项目安装内置的 Ps2Unity 3.0.0。
 
 ## UPM 安装（推荐）
 
-1. 解压 `PS2Unity-Unity-UPM-2.1.1.zip`。
+1. 解压 `PS2Unity-Unity-UPM-3.0.0.zip`。
 2. 在 Unity 打开 `Window -> Package Manager`。
 3. 点击左上角 `+ -> Add package from disk...`。
 4. 选择 `com.psd2unity.uiimport/package.json`。
-5. 等待编译完成，从 `Tools -> PS2Unity -> 打开工作台` 进入。
+5. 等待依赖与插件加载完成，再从 `Tools -> PS2Unity -> 打开工作台` 进入。
 
 ## Unitypackage 安装
 
 1. 打开 `Assets -> Import Package -> Custom Package...`。
-2. 选择 `PS2Unity-Unity-2.1.1.unitypackage` 并完整导入。
-3. 插件引导器会通过 UPM 补齐 Unity UI、TextMesh Pro 和 Newtonsoft Json。
+2. 选择 `PS2Unity-Unity-3.0.0.unitypackage` 并完整导入。
+3. 插件引导器会通过 Package Manager 补齐 Unity UI、TextMesh Pro 和 Newtonsoft Json。
 4. 等待依赖安装和程序集重载完成，再打开工作台。
 
-旧工程若保留 `Assets/UITools` 等手工复制版本，应先移除旧副本，避免同一程序集重复。升级后的第一次资源导入或 Bundle 构建可能建立新基线，后续未修改资源的构建应保持稳定。
+第一次在项目中使用 TextMesh Pro 时，Unity 可能打开 `TMP Importer`：点击 `Import TMP Essentials`。示例资源 `TMP Examples & Extras` 不需要导入。
 
 ## 导入操作
 
-1. 在工作台“导入”页选择 PS2UI Package 根目录，不要选择 `sprites`。
+1. 在工作台“导入”页选择 PS2UI Package 根目录，不要选择 `sprites` 子目录。
 2. 设置图片、Prefab 和公共资源目录。
-3. 检查画板预览、警告、资源复用与九宫契约。
+3. 检查画板预览、警告、资源复用与九宫边界。
 4. 点击开始导入。
-5. 每个可见画板生成相应 Prefab；会被重导覆盖的 Generated 内容不要直接挂业务脚本，业务逻辑放在外壳 Prefab。
+5. 每个可见画板会生成对应 Prefab。会被重新导入覆盖的 Generated Prefab 不要直接挂业务脚本；业务逻辑放在外层 Prefab。
 
-## 字体与排版
+字体未绑定时仍会生成完整界面，并保留文字、字号、行高、字距、对齐和矩形。之后可在工作台“字体”页绑定项目已有的 TMP Font Asset 和材质，再刷新 Prefab。
 
-Package 已包含字体身份和排版参数，不要求额外字体 JSON。项目中已有精确映射时自动使用 TMP Font Asset；未绑定时仍生成完整 Prefab，保留文字、字号、行高、字距、对齐和矩形，并在工作台“字体”页进入待绑定清单。
+## 从 2.1.x 升级到 3.0.0
 
-字体页可绑定 TMP 字体、材质样式并刷新已生成 Prefab。插件不复制或分发字体二进制。
+3.0.0 不再生成 `SafeAreaFitter` 和 `PSD2UnityTextGradient`。升级前请在版本控制中搜索：
 
-## 资源复用与构建稳定性
+```text
+SafeAreaFitter:        e9d75704fb6b4bca90eaba138d84c015
+PSD2UnityTextGradient: f7c4b1a9d5e64a8f82b75d1309ce4261
+```
 
-- 解码 RGBA 像素、尺寸与九宫契约完全一致时复用已有 Sprite。
-- 颜色、Alpha、轮廓或九宫边界不同的资源不会强制合并。
-- 显式导入流程只在设置确实变化时执行 `SaveAndReimport`。
-- 插件不注册全局 `OnPreprocessTexture`，不会参与无关图片刷新、SpriteAtlas 重建或 YooAsset/SBP Bundle 构建。
-- 内容未变化的重复导入不会重写 PNG。
+先使用 2.1.1 重新导入旧文字渐变界面，使其改用 TMP 原生渐变。Safe Area 先替换为项目自己的实现，再关闭旧选项并重新生成。依赖 `SafeArea/Foo` 节点路径、动画或层级绑定的项目也要同步调整。
 
-## 查看版本
+UPM 更新会替换包内容；`.unitypackage` 覆盖导入不会自动删除旧文件。确认旧 Prefab 已迁移后，再检查并删除：
 
-- 打开 `Window -> Package Manager`，选择 `PS2Unity UI Importer` 查看版本。
-- 或查看 `Packages/com.psd2unity.uiimport/package.json` 的 `version`。
+```text
+Assets/PSD2Unity/Runtime
+Assets/UITools/Runtime
+```
 
-## 升级与卸载
-
-- UPM：在 Package Manager 移除旧版本，再按新版 `package.json` 安装；本地磁盘包也可直接替换后让 Unity 刷新。
-- Unitypackage：完整导入新版，轻量引导器会清理旧版遗留的全局纹理后处理器。
-- 卸载：优先在 Package Manager 中 Remove；传统安装需要先确认没有业务代码依赖插件程序集，再删除对应插件目录。
+没有原 Photoshop Package 的旧 Prefab 无法无损自动迁移，应先保留旧组件，或由项目开发者手工替换。
 
 ## 校验下载
 
 ```powershell
-Get-FileHash .\PS2Unity-Unity-UPM-2.1.1.zip -Algorithm SHA256
-Get-FileHash .\PS2Unity-Unity-2.1.1.unitypackage -Algorithm SHA256
+Get-FileHash .\PS2Unity-Unity-UPM-3.0.0.zip -Algorithm SHA256
+Get-FileHash .\PS2Unity-Unity-3.0.0.unitypackage -Algorithm SHA256
 ```
 
-输出应与 `PS2Unity-2.1.1-SHA256.txt` 一致。
+输出应与 `PS2Unity-3.0.0-SHA256.txt` 一致。
