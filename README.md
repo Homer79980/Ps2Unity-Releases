@@ -1,6 +1,6 @@
 # Ps2Unity Releases
 
-Ps2Unity 是适用于 Unity 2022.3 的纯 Editor UI 导入器。它把 PS2UI Photoshop Package 转换为可编辑的 uGUI Prefab，并处理 Sprite 复用、九宫、TextMesh Pro 字体与材质映射。
+Ps2Unity 是适用于 Unity 2022.3 的纯 Editor UI / 2D 场景导入器。它把 PS2UI Photoshop Package 转换为可编辑的 uGUI Prefab，并处理 Sprite 复用、九宫、TextMesh Pro 字体与材质映射。
 
 新生成的 Prefab 只使用 Unity UI、TextMesh Pro 和项目资源。PS2Unity 只在导入时工作，卸载插件后，已经生成的界面仍可继续运行。
 
@@ -8,21 +8,23 @@ Ps2Unity 是适用于 Unity 2022.3 的纯 Editor UI 导入器。它把 PS2UI Pho
 
 先从 [PS2UI Releases](https://github.com/Homer79980/PS2UI/releases/latest) 安装 Photoshop 导出器，再在 Photoshop 中导出包含 `layout.json` 和 `sprites/` 的 Package。
 
-## 下载 3.0.0
+3.2.5 新增 SpriteRenderer 场景导入、安全图片复用，恢复原字体页，并修复同名画板输出冲突与 DLL 升级。
 
-[打开 Ps2Unity 3.0.0 Release](https://github.com/Homer79980/Ps2Unity-Releases/releases/tag/v3.0.0)
+## 下载 3.2.5
+
+[打开 Ps2Unity 3.2.5 Release](https://github.com/Homer79980/Ps2Unity-Releases/releases/tag/v3.2.5)
 
 | 文件 | 用途 |
 |---|---|
-| `PS2Unity-Unity-UPM-3.0.0.zip` | 推荐的 Unity Package Manager 安装包 |
-| `PS2Unity-Unity-3.0.0.unitypackage` | 传统 Custom Package 安装包 |
-| `PS2Unity-3.0.0-SHA256.txt` | 两个安装包的 SHA-256 |
+| `PS2Unity-Unity-UPM-3.2.5.zip` | 推荐的 Unity Package Manager 安装包 |
+| `PS2Unity-Unity-3.2.5.unitypackage` | 传统 Custom Package 安装包 |
+| `PS2Unity-3.2.5-SHA256.txt` | 两个安装包的 SHA-256 |
 
-Windows 用户也可以使用 PS2UI Engine Installer 0.1.2，一次为项目安装内置的 Ps2Unity 3.0.0。
+Windows 用户也可以使用 PS2UI Engine Installer 0.1.3，一次为项目安装内置的 Ps2Unity 3.2.5。
 
 ## UPM 安装（推荐）
 
-1. 解压 `PS2Unity-Unity-UPM-3.0.0.zip`。
+1. 解压 `PS2Unity-Unity-UPM-3.2.5.zip`。
 2. 在 Unity 打开 `Window -> Package Manager`。
 3. 点击左上角 `+ -> Add package from disk...`。
 4. 选择 `com.psd2unity.uiimport/package.json`。
@@ -31,7 +33,7 @@ Windows 用户也可以使用 PS2UI Engine Installer 0.1.2，一次为项目安�
 ## Unitypackage 安装
 
 1. 打开 `Assets -> Import Package -> Custom Package...`。
-2. 选择 `PS2Unity-Unity-3.0.0.unitypackage` 并完整导入。
+2. 选择 `PS2Unity-Unity-3.2.5.unitypackage` 并完整导入。
 3. 插件引导器会通过 Package Manager 补齐 Unity UI、TextMesh Pro 和 Newtonsoft Json。
 4. 等待依赖安装和程序集重载完成，再打开工作台。
 
@@ -47,9 +49,9 @@ Windows 用户也可以使用 PS2UI Engine Installer 0.1.2，一次为项目安�
 
 字体未绑定时仍会生成完整界面，并保留文字、字号、行高、字距、对齐和矩形。之后可在工作台“字体”页绑定项目已有的 TMP Font Asset 和材质，再刷新 Prefab。
 
-## 从 2.1.x 升级到 3.0.0
+## 从 2.1.x 升级到 3.2.5
 
-3.0.0 不再生成 `SafeAreaFitter` 和 `PSD2UnityTextGradient`。升级前请在版本控制中搜索：
+3.2.5 不再生成 `SafeAreaFitter` 和 `PSD2UnityTextGradient`。升级前请在版本控制中搜索：
 
 ```text
 SafeAreaFitter:        e9d75704fb6b4bca90eaba138d84c015
@@ -70,8 +72,8 @@ Assets/UITools/Runtime
 ## 校验下载
 
 ```powershell
-Get-FileHash .\PS2Unity-Unity-UPM-3.0.0.zip -Algorithm SHA256
-Get-FileHash .\PS2Unity-Unity-3.0.0.unitypackage -Algorithm SHA256
+Get-FileHash .\PS2Unity-Unity-UPM-3.2.5.zip -Algorithm SHA256
+Get-FileHash .\PS2Unity-Unity-3.2.5.unitypackage -Algorithm SHA256
 ```
 
-输出应与 `PS2Unity-3.0.0-SHA256.txt` 一致。
+输出应与 `PS2Unity-3.2.5-SHA256.txt` 一致。
